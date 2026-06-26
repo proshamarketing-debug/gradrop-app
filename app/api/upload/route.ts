@@ -3,7 +3,7 @@ import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
-async function removeBackground(buffer: Buffer, mimeType: string): Promise<Buffer | null> {
+async function removeBackground(buffer: Buffer, mimeType: string): Promise<Buffer<ArrayBuffer> | null> {
   try {
     const apiKey = process.env.REMOVEBG_API_KEY;
     if (!apiKey) {
