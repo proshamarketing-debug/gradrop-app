@@ -76,7 +76,7 @@ export function AddClothingModal({ isOpen, onClose, onAdd, prefilledColorName, p
         const data = await response.json();
         setFormData((prev) => ({
           ...prev,
-          image: data.filename,
+          image: data.url,
         }));
       } catch (error) {
         setUploadError('Yükleme başarısız');

@@ -31,7 +31,7 @@ export function ClothingCard({ item, onDelete }: Props) {
       <div className="relative h-48 bg-gray-100 overflow-hidden">
         {item.image ? (
           <img
-            src={`/uploads/${item.image}`}
+            src={item.image}
             alt={item.name}
             className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
           />

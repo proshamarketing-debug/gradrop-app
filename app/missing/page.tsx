@@ -41,7 +41,7 @@ export default function MissingPage() {
       const data = await res.json();
       setWishlist(prev => {
         const updated = prev.map(item =>
-          item.id === id ? { ...item, image: data.filename } : item
+          item.id === id ? { ...item, image: data.url } : item
         );
         localStorage.setItem('wishlistItems', JSON.stringify(updated));
         return updated;
@@ -71,7 +71,7 @@ export default function MissingPage() {
                   >
                     {item.image ? (
                       <img
-                        src={`/uploads/${item.image}`}
+                        src={item.image}
                         alt={item.colorName}
                         className="w-full h-full object-cover"
                       />
