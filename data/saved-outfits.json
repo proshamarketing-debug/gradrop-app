@@ -1,0 +1,76 @@
+[
+  {
+    "items": [
+      {
+        "id": "376764a9-be32-43f6-83cb-dbcd67dd887d",
+        "createdAt": "2026-06-18T16:37:30.070Z",
+        "name": "pantalon",
+        "type": "alt",
+        "color": "#000000",
+        "colorName": "Siyah",
+        "colorTemp": "nötr",
+        "size": "M",
+        "season": [
+          "sonbahar"
+        ],
+        "image": "27724679-6732-4042-9441-3b4e6b5d72d2.webp",
+        "brand": "",
+        "tags": []
+      },
+      {
+        "id": "dd9bd244-2a24-45c4-acf3-fae668b601a9",
+        "createdAt": "2026-06-18T18:29:29.699Z",
+        "name": "ceket",
+        "type": "üst",
+        "color": "#000000",
+        "colorName": "Siyah",
+        "colorTemp": "nötr",
+        "size": "M",
+        "season": [
+          "ilkbahar",
+          "yaz",
+          "sonbahar",
+          "kış"
+        ],
+        "image": "547c4a3d-d8f6-4600-a412-68549aa34402.webp",
+        "brand": "",
+        "tags": []
+      },
+      {
+        "id": "4ae2319c-3d60-4504-812f-2ef7ece22cab",
+        "createdAt": "2026-06-24T17:13:07.484Z",
+        "name": "Mayka",
+        "type": "üst",
+        "color": "#efebeb",
+        "colorName": "Ağ",
+        "colorTemp": "nötr",
+        "size": "M",
+        "season": [
+          "yaz"
+        ],
+        "image": "80c67202-cc17-44be-899b-09d73e076ea7.png",
+        "brand": "Zara",
+        "tags": [
+          "rahat"
+        ]
+      }
+    ],
+    "harmonyType": "monokromatik",
+    "score": 79,
+    "explanation": "Soyuq hava və klassik stil tərcihi nəzərə alınaraq bu kombinə seçildi. Siyah rəngli ceket (bütün fəsillərə uyğun) üst geyim kimi seçildi — həm soyuq havaya qarşı qoruyucu, həm də klassik görünüş üçün idealdır. Siyah pantalon ilə ceket arasında tam rəng harmoniyası təmin edildi; bu monohromatik siyah kombinə rəsmi və ciddi bir görüntü yaradır. Ağ mayka isə içə geyilən qat kimi daxil edildi — ceketin altından görünən ağ yaxalıq klassik stilin əsas elementi hesab olunur və siyah-ağ kontrast estetik baxımdan çox effektlidir. Ümumilikdə bu kombinə sual tipli bir tədbir üçün ciddi, səliqəli və klassik bir görünüş təqdim edir.",
+    "suggestedItems": [
+      {
+        "type": "ayakkabı",
+        "colorName": "Siyah",
+        "reason": "Siyah dəri Oxford və ya Derby ayaqqabısı bu tam siyah klassik kombinəni tamamlayacaq və sual mühitinə uyğun rəsmi bir görünüş əlavə edəcək."
+      },
+      {
+        "type": "aksesuar",
+        "colorName": "Tünd göy və ya Bordo",
+        "reason": "Tünd göy və ya bordo rəngli bir qalstuk monotonn siyah kombinəyə dərinlik və klassik bir elegantlıq qatacaq, sual mühitində fərqli və güvənilir bir iz buraxmağa kömək edəcək."
+      }
+    ],
+    "id": "343641d0-1dbf-4a1c-98e9-73a5c2cf85e7",
+    "savedAt": "2026-06-24T18:21:39.386Z"
+  }
+]
