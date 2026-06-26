@@ -58,8 +58,9 @@ export async function POST(request: NextRequest) {
     // Remove background if requested (for clothing items)
     if (removebg) {
       const cleanedBuffer = await removeBackground(buffer, file.type);
+      // @ts-ignore
       if (cleanedBuffer) {
-        buffer = cleanedBuffer as any;
+        buffer = cleanedBuffer;
       }
     }
 
