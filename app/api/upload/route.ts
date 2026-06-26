@@ -12,7 +12,7 @@ async function removeBackground(buffer: Buffer, mimeType: string): Promise<Buffe
     }
 
     const formData = new FormData();
-    const blob = new Blob([buffer], { type: mimeType });
+    const blob = new Blob([new Uint8Array(buffer)], { type: mimeType });
     formData.append('image_file', blob);
     formData.append('format', 'png');
     formData.append('type', 'product');
