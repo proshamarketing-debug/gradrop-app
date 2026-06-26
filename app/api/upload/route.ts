@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     await mkdir(uploadsDir, { recursive: true });
 
     let bytes = await file.arrayBuffer();
-    let buffer = Buffer.from(bytes);
+    let buffer: any = Buffer.from(bytes);
 
     // Remove background if requested (for clothing items)
     if (removebg) {
