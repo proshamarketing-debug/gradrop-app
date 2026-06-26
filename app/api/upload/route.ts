@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     if (removebg) {
       const cleanedBuffer = await removeBackground(buffer, file.type);
       if (cleanedBuffer) {
-        buffer = cleanedBuffer;
+        buffer = cleanedBuffer as any;
       }
     }
 
