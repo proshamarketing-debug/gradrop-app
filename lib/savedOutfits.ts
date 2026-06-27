@@ -1,62 +1,113 @@
 import { SavedOutfit } from './types';
-import { promises as fs } from 'fs';
-import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { supabase } from './supabase';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
-const SAVED_OUTFITS_FILE = path.join(DATA_DIR, 'saved-outfits.json');
-
-async function ensureDataDir() {
+export async function getSavedOutfits(): Promise<SavedOutfit[]> {
   try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== 'EEXIST') {
-      throw error;
+    const { data, error } = await supabase
+      .from('outfits')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching outfits:', error);
+      return [];
     }
+
+    return (data || []).map(outfit => ({
+      id: outfit.id,
+      items: outfit.items,
+      harmonyType: outfit.harmony_type || 'none',
+      score: outfit.match_score || 0,
+      explanation: outfit.description || '',
+      savedAt: outfit.created_at,
+    }));
+  } catch (error) {
+    console.error('Error fetching outfits:', error);
+    return [];
   }
 }
 
-export async function getSavedOutfits(): Promise<SavedOutfit[]> {
-  await ensureDataDir();
+export async function addSavedOutfit(outfit: Omit<SavedOutfit, 'id' | 'savedAt'>): Promise<SavedOutfit> {
   try {
-    const data = await fs.readFile(SAVED_OUTFITS_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-      return [];
+    const id = uuidv4();
+    const { data, error } = await supabase
+      .from('outfits')
+      .insert([
+        {
+          id,
+          name: outfit.harmonyType || 'Untitled Outfit',
+          description: outfit.explanation || null,
+          items: outfit.items,
+          harmony_type: outfit.harmonyType,
+          match_score: outfit.score || null,
+          created_at: new Date().toISOString(),
+        }
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error adding outfit:', error);
+      throw error;
     }
+
+    return {
+      id: data.id,
+      items: data.items,
+      harmonyType: data.harmony_type || 'none',
+      score: data.match_score || 0,
+      explanation: data.description || '',
+      savedAt: data.created_at,
+    };
+  } catch (error) {
+    console.error('Error adding outfit:', error);
     throw error;
   }
 }
 
-export async function saveSavedOutfits(outfits: SavedOutfit[]): Promise<void> {
-  await ensureDataDir();
-  await fs.writeFile(SAVED_OUTFITS_FILE, JSON.stringify(outfits, null, 2), 'utf-8');
-}
-
-export async function addSavedOutfit(outfit: Omit<SavedOutfit, 'id' | 'savedAt'>): Promise<SavedOutfit> {
-  const outfits = await getSavedOutfits();
-  const newOutfit: SavedOutfit = {
-    ...outfit,
-    id: uuidv4(),
-    savedAt: new Date().toISOString(),
-  };
-  outfits.push(newOutfit);
-  await saveSavedOutfits(outfits);
-  return newOutfit;
-}
-
 export async function deleteSavedOutfit(id: string): Promise<boolean> {
-  const outfits = await getSavedOutfits();
-  const filtered = outfits.filter((o) => o.id !== id);
-  if (filtered.length === outfits.length) {
+  try {
+    const { error } = await supabase
+      .from('outfits')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Error deleting outfit:', error);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Error deleting outfit:', error);
     return false;
   }
-  await saveSavedOutfits(filtered);
-  return true;
 }
 
 export async function getSavedOutfit(id: string): Promise<SavedOutfit | null> {
-  const outfits = await getSavedOutfits();
-  return outfits.find((o) => o.id === id) || null;
+  try {
+    const { data, error } = await supabase
+      .from('outfits')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      console.error('Error fetching outfit:', error);
+      return null;
+    }
+
+    return {
+      id: data.id,
+      items: data.items,
+      harmonyType: data.harmony_type || 'none',
+      score: data.match_score || 0,
+      explanation: data.description || '',
+      savedAt: data.created_at,
+    };
+  } catch (error) {
+    console.error('Error fetching outfit:', error);
+    return null;
+  }
 }

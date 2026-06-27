@@ -1,75 +1,64 @@
-# Supabase Kurulum Adımları
+# Supabase Setup
 
-## 1. Supabase Projesi Oluştur
-- [supabase.com](https://supabase.com) adresine git
-- Yeni bir proje oluştur
-- Proje dashboard'dan URL ve anon key'i kopyala
-- `.env.local` dosyasındaki bu değişkenleri güncelle:
-  - `NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co`
-  - `NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY`
+## 1. Run SQL Migration
 
-## 2. Veritabanı Tabloları Oluştur
-Dashboard > SQL Editor'da aşağıdaki SQL'i çalıştır:
+https://app.supabase.com > SQL Editor > + New Query
+
+Kopyala ve çalıştır:
 
 ```sql
--- Wardrobe Items Table
-CREATE TABLE IF NOT EXISTS public.wardrobe_items (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  name text NOT NULL,
-  type text NOT NULL,
-  color text NOT NULL,
-  color_name text NOT NULL,
-  color_temp text NOT NULL,
-  size text NOT NULL,
-  season text[] NOT NULL DEFAULT '{}',
-  image text,
-  brand text,
-  tags text[] NOT NULL DEFAULT '{}',
-  created_at timestamptz NOT NULL DEFAULT now()
+-- Create wardrobe_items table
+CREATE TABLE IF NOT EXISTS wardrobe_items (
+  id TEXT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  type VARCHAR(50) NOT NULL,
+  color VARCHAR(20),
+  color_name VARCHAR(100),
+  color_temp VARCHAR(50),
+  size VARCHAR(50),
+  season TEXT[],
+  image TEXT,
+  brand VARCHAR(100),
+  tags TEXT[],
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Saved Outfits Table
-CREATE TABLE IF NOT EXISTS public.saved_outfits (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  items jsonb NOT NULL DEFAULT '[]',
-  harmony_type text NOT NULL,
-  score integer NOT NULL,
-  explanation text NOT NULL,
-  suggested_items jsonb NOT NULL DEFAULT '[]',
-  saved_at timestamptz NOT NULL DEFAULT now()
+CREATE INDEX IF NOT EXISTS idx_wardrobe_items_created_at ON wardrobe_items(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_wardrobe_items_type ON wardrobe_items(type);
+
+-- Create outfits table
+CREATE TABLE IF NOT EXISTS outfits (
+  id TEXT PRIMARY KEY,
+  name VARCHAR(200),
+  description TEXT,
+  items JSONB NOT NULL,
+  image_url TEXT,
+  match_score INTEGER,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- User Profile Table
-CREATE TABLE IF NOT EXISTS public.user_profile (
-  id uuid PRIMARY KEY DEFAULT 'EXAMPLE-UUID-HERE'::uuid,
-  name text,
-  height_cm integer,
-  weight_kg integer,
-  body_shape text,
-  skin_tone text,
-  hair_color text,
-  hair_style text,
-  style_persona text,
-  gender text,
-  profile_image text,
-  updated_at timestamptz NOT NULL DEFAULT now()
+CREATE INDEX IF NOT EXISTS idx_outfits_created_at ON outfits(created_at DESC);
+
+-- Create lookbook table
+CREATE TABLE IF NOT EXISTS lookbook (
+  id TEXT PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  description TEXT,
+  image_url TEXT,
+  outfit_id TEXT REFERENCES outfits(id),
+  tags JSONB,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+CREATE INDEX IF NOT EXISTS idx_lookbook_created_at ON lookbook(created_at DESC);
 ```
 
-## 3. Storage Bucket Oluştur
-- Dashboard > Storage'a git
-- "New Bucket" butonuna tıkla
-- Bucket adı: `images`
-- Public access: **açık** (Public)
-- Create bucket
+## 2. Storage Bucket
 
-## 4. Test Et
-```bash
-npm run dev
-```
+Storage > + New Bucket
+- Name: `images`
+- Public: ON
 
-Tarayıcıda açılan uygulamada kıyafet eklemeyi dene. Görsel yüklenmeli ve veritabanında saklanmalı.
+## Done! ✅
 
-## Not
-- Auth olmadan çalışıyor (tek kullanıcı, tüm veriler paylaşılıyor)
-- Auth istersen, sonraki aşamada ekleyeceğiz
+Şimdi test et!
