@@ -289,7 +289,7 @@ export function AddClothingModal({ isOpen, onClose, onAdd, prefilledColorName, p
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Marka (isteğe bağlı)
+              {t('brand')}
             </label>
             <input
               type="text"

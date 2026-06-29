@@ -11,7 +11,7 @@ const getPrompt = (language: Language, harmonyInfo: any, occasion: string, weath
   const itemList = harmonyInfo.slice(0, 8).map(item => `${item.id}: ${item.name} (${item.colorName})`).join(', ');
 
   const prompts = {
-    tr: `Sen moda danismanisın. Bu kıyafetlerden: ${itemList}
+    tr: `Sen moda danışmanısın. Bu kıyafetlerden: ${itemList}
 
 Etkinlik: ${occasion}, Hava: ${weather}, Stil: ${style}
 
@@ -22,7 +22,7 @@ JSON cevap ver:
 
     az: `Sen moda məsləhətçisisin. Bu geyimlərden: ${itemList}
 
-Tədbiyin tipi: ${occasion}, Hava: ${weather}, Stil: ${style}
+Tədbirinin Tipi: ${occasion}, Hava: ${weather}, Stil: ${style}
 
 Qaydalar: 3-4 geyim seç. Rəng uyğunluğu sağla. Hər geyimin ID'sini yaz.
 

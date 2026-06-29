@@ -122,19 +122,19 @@ export default function Home() {
           <div className="grid grid-cols-4 gap-3 bg-white p-4 rounded-2xl shadow-sm border border-stone-100">
             <div className="flex flex-col items-center p-2 rounded-xl bg-stone-50 text-center">
               <span className="text-3xl mb-1">👔</span>
-              <span className="text-[10px] text-zinc-500 font-medium truncate w-full">Gömlek</span>
+              <span className="text-[10px] text-zinc-500 font-medium truncate w-full">{t('shirt')}</span>
             </div>
             <div className="flex flex-col items-center p-2 rounded-xl bg-stone-50 text-center">
               <span className="text-3xl mb-1">👖</span>
-              <span className="text-[10px] text-zinc-500 font-medium truncate w-full">Jean</span>
+              <span className="text-[10px] text-zinc-500 font-medium truncate w-full">{t('jeans')}</span>
             </div>
             <div className="flex flex-col items-center p-2 rounded-xl bg-stone-50 text-center">
               <span className="text-3xl mb-1">👟</span>
-              <span className="text-[10px] text-zinc-500 font-medium truncate w-full">Sneaker</span>
+              <span className="text-[10px] text-zinc-500 font-medium truncate w-full">{t('sneaker')}</span>
             </div>
             <div className="flex flex-col items-center p-2 rounded-xl bg-stone-50 text-center">
               <span className="text-3xl mb-1">✨</span>
-              <span className="text-[10px] text-zinc-500 font-medium truncate w-full">Kolye</span>
+              <span className="text-[10px] text-zinc-500 font-medium truncate w-full">{t('accessory')}</span>
             </div>
           </div>
 
