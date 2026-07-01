@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { v4 as uuidv4 } from 'uuid'
 import { supabase } from '@/lib/supabase'
 
-async function removeBackground(buffer: Buffer, mimeType: string): Promise<Buffer | null> {
+async function removeBackground(buffer: Buffer, mimeType: string): Promise<Buffer<ArrayBuffer> | null> {
   try {
     const apiKey = process.env.REMOVEBG_API_KEY
     if (!apiKey) {
