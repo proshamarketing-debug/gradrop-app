@@ -69,7 +69,8 @@ export function AddClothingModal({ isOpen, onClose, onAdd, prefilledColorName, p
         });
 
         if (!response.ok) {
-          setUploadError('Fotoğraf yüklenemedi');
+          const errData = await response.json().catch(() => ({}));
+          setUploadError(errData.detail ? `Hata: ${errData.detail}` : 'Fotoğraf yüklenemedi');
           return;
         }
 

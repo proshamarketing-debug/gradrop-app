@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
 
     if (uploadError) {
       console.error('Upload error:', uploadError)
-      return NextResponse.json({ error: 'Yükleme başarısız' }, { status: 500 })
+      return NextResponse.json({ error: 'Yükleme başarısız', detail: uploadError.message }, { status: 500 })
     }
 
     const { data: { publicUrl } } = supabase.storage
